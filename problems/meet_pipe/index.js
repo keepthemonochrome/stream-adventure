@@ -19,15 +19,15 @@ var data = lines.join('\n') + '\n';
 
 exports.verify = verify({ modeReset: true }, function (args, t) {
     t.plan(3);
-    
+
     t.equal(args.length, 1, 'stream-adventure verify YOURFILE.js')
-    
-    var file = path.resolve(tmpdir, 'meet-pipe-data.txt');
+
+    var file = path.resolve(tmpdir, 'meet-pipe-data.txt'); // path.resolve() method resolves a sequence of paths or path segments into an absolute path.
     fs.writeFileSync(file, data);
-    
+
     var ps = spawn(process.execPath, [ args[0], file ]);
     ps.stderr.pipe(process.stderr);
-    
+
     ps.stdout.pipe(concat(function (body) {
         t.deepEqual(body.toString(), data);
     }));
@@ -39,7 +39,7 @@ exports.verify = verify({ modeReset: true }, function (args, t) {
 exports.run = function (args) {
     var file = path.resolve(tmpdir, 'meet-pipe-data.txt');
     fs.writeFileSync(file, data);
-    
+
     var ps = spawn(process.execPath, [ args[0], file ]);
     ps.stderr.pipe(process.stderr);
     ps.stdout.pipe(process.stdout);

@@ -12,4 +12,5 @@
 var ws = require('websocket-stream');
 
 var stream = ws('ws://localhost:8099');
-stream.write('hello\n'); //???? Cannot find anywhere in the doc
+// stream.write('hello\n'); //???? Cannot find anywhere in the doc
+stream.send('hello\n'); // also possible

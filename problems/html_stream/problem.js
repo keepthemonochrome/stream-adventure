@@ -9,10 +9,12 @@ var thru = through(function (buf, _, next) {
     next();
 });
 
-fs.createReadStream('input.html').pipe(tr);
+// fs.createReadStream('input.html').pipe(tr);
 var stream = tr.select('.loud').createStream();
-var entireStream = tr.select
-stream.pipe(thru).pipe(process.stdout)
+stream.pipe(thru).pipe(stream); //?????WHY do I have to add .pipe(stream)
+fs.createReadStream('input.html').pipe(tr).pipe(process.stdout);
+// stream.pipe(thru).pipe(process.stdout)
+// process.stdin.pipe(stream.pipe(thru).pipe(stream)).pipe(process.stdout)
 
 
 

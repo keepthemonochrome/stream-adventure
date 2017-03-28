@@ -40,9 +40,9 @@ exports.verify = verify({ modeReset: true }, function (args, t) {
     var fn = require(path.resolve(args[0]));
     t.equal(typeof fn, 'function', 'solution exports a function');
     var stream = fn();
-    
+
     var rows = data.slice();
-    
+
     var iv = setInterval(function () {
         if (rows.length === 0) {
             clearInterval(iv);
@@ -50,7 +50,7 @@ exports.verify = verify({ modeReset: true }, function (args, t) {
         }
         else stream.write(rows.shift() + '\n')
     }, 10);
-    
+
     stream.pipe(zlib.createGunzip()).pipe(concat(function (body) {
         var lines = body.toString().trim().split('\n').map(JSON.parse);
         t.deepEqual(sort(lines), expected);
@@ -60,9 +60,9 @@ exports.verify = verify({ modeReset: true }, function (args, t) {
 exports.run = function (args) {
     var fn = require(path.resolve(args[0]));
     var stream = fn();
-    
+
     var rows = data.slice();
-    
+
     var iv = setInterval(function () {
         if (rows.length === 0) {
             clearInterval(iv);
@@ -70,7 +70,7 @@ exports.run = function (args) {
         }
         else stream.write(rows.shift() + '\n')
     }, 10);
-    
+
     stream.pipe(zlib.createGunzip()).pipe(process.stdout);
 };
 
